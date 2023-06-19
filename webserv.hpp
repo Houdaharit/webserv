@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-class config
+class Server
 {
 	std::string server_name;
 	std::string host;
@@ -21,4 +21,8 @@ class config
 		int& get_body_size();
 		int& get_autoindex();
 };
+
+int check_conf_file(int argc, char** argv);
+void trim_front(std::string& str);
+void trim_back(std::string& str);
 #endif
