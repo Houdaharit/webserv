@@ -1,29 +1,33 @@
 #include "webserv.hpp"
 
+void set_key_value(std::string& line, std::string& key, std::string& value)
+{
+	std::size_t pos = 0;
+
+	while (pos < line.size() && (line[pos] != ' ' && line[pos] != '\t'))
+		pos++;
+	if (pos < line.size())
+	{
+		key = line.substr(0, pos);
+		value = line.substr(pos+1);
+		trim_front(value);
+		trim_back(value);
+		trim_back(key);
+	}
+	else
+		key = line;
+}
+
 Server parsing(std::string& line)
 {
-	std::size_t pos;
 	std::string key;
 	std::string value;
 	Server server;
 
-	pos = line.find(' ');
-	if (pos == std::string::npos)
-		pos = line.find('\t');
-	if (pos == std::string::npos)
-		pos = line.find('\r');
-	if (pos == std::string::npos)
-		pos = line.find('\f');
-	if (pos == std::string::npos)
-		pos = line.find('\v');
-	key = line.substr(0, pos);
-	value = line.substr(pos+1);
-	/*trim_front(value);
-	trim_back(value);
-	trim_back(key);*/
-	std::cout << "key: " << key << " value: " << value << std::endl;
+	set_key_value(line, key, value);
 	return server;
 }
+
 void read_file(std::ifstream& conffile)
 {
 	std::string line;
@@ -34,7 +38,6 @@ void read_file(std::ifstream& conffile)
 			getline(conffile, line);
 		trim_front(line);
 		parsing(line);
-		//	std::cout << line << std::endl;
 	}	
 }
 
