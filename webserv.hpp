@@ -14,11 +14,11 @@ class config
 	int autoindex;
 	public:
 		std::string& get_server_name();
-		std::string& get_host;
-		std::string& get_root;
+		std::string& get_host();
+		std::string& get_root();
 		std::string& get_error_page();
 		int& get_port();
 		int& get_body_size();
-		int& get_autoindex;
+		int& get_autoindex();
 };
 #endif
