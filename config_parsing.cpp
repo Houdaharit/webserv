@@ -1,18 +1,34 @@
 #include "webserv.hpp"
 
+void set_server(Server& server, std::string& key, std::string& value)
+{
+	if (key == "listen")
+	{
+		std::size_t pos = value.find(':');
+		if (pos != std::string::npos)
+		{
+			server.set_host(value.substr(0, pos));
+			server.set_port(value.substr(pos + 1));
+		} 
+	}
+	else if (key == "root")
+	{
+		//set root
+	}
+}
 void set_key_value(std::string& line, std::string& key, std::string& value)
 {
 	std::size_t pos = 0;
 
+	trim_front(line);
 	while (pos < line.size() && (line[pos] != ' ' && line[pos] != '\t'))
 		pos++;
 	if (pos < line.size())
 	{
 		key = line.substr(0, pos);
 		value = line.substr(pos+1);
-		trim_front(value);
-		trim_back(value);
-		trim_back(key);
+		str_trim(value);
+		str_trim(key);
 	}
 	else
 		key = line;
@@ -20,11 +36,13 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 
 Server parsing(std::string& line)
 {
-	std::string key;
-	std::string value;
+	std::string key("");
+	std::string value("");
 	Server server;
 
 	set_key_value(line, key, value);
+	set_server(server, key, value);
+	//std::cout << "key: " << key << " value: " << value << std::endl;
 	return server;
 }
 
@@ -36,7 +54,6 @@ void read_file(std::ifstream& conffile)
 	{
 		while (line == "")
 			getline(conffile, line);
-		trim_front(line);
 		parsing(line);
 	}	
 }
