@@ -3,13 +3,13 @@
 void set_server(Server& server, std::string& key, std::string& value)
 {
 	if (key == "listen")
+		server.set_host_port(value);
+	else if (key == "client_max_body_size")
+		server.set_body_size(value);
+	if (key == "autoindex")
 	{
-		std::size_t pos = value.find(':');
-		if (pos != std::string::npos)
-		{
-			server.set_host(value.substr(0, pos));
-			server.set_port(value.substr(pos + 1));
-		} 
+		server.set_autoindex(value);
+		std::cout << "autoindex: " << server.get_autoindex() << std::endl; 
 	}
 	else if (key == "root")
 	{

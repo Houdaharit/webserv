@@ -13,17 +13,19 @@ class Server
 	int body_size;
 	std::string root;
 	std::string error_page;
-	int autoindex;
+	std::string autoindex;
 	public:
 		std::string& get_server_name();
 		std::string& get_host();
 		std::string& get_root();
 		std::string& get_error_page();
+		std::string& get_autoindex();
 		int& get_port();
 		int& get_body_size();
-		int& get_autoindex();
-		void set_host(std::string);
-		void set_port(std::string);
+		void set_host_port(std::string&);
+		void set_server_name(std::string&);
+		void set_body_size(std::string&);
+		void set_autoindex(std::string&);
 };
 
 int check_conf_file(int argc, char** argv);
