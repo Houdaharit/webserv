@@ -9,7 +9,7 @@ void set_server(Server& server, std::string& key, std::string& value)
 	if (key == "autoindex")
 	{
 		server.set_autoindex(value);
-		std::cout << "autoindex: " << server.get_autoindex() << std::endl; 
+		//std::cout << "autoindex: " << server.get_autoindex() << std::endl; 
 	}
 	else if (key == "root")
 	{
