@@ -1,6 +1,6 @@
 #include "webserv.hpp"
 
-void set_server(Server& server, std::string& key, std::string& value)
+void parse_server(Server& server, std::string& key, std::string& value)
 {
 	if (key == "listen")
 		server.set_host_port(value);
