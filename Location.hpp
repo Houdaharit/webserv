@@ -1,6 +1,7 @@
 #ifndef LOCATION_HPP
 #define LOCATION_HPP
 #include <iostream>
+#include <vector>
 
 class Location
 {
@@ -9,6 +10,7 @@ class Location
 	std::string try_file;
 	int error;
 	std::string redirection;
+	int redirect;
 	std::vector<std::string> allow_methods;
 	std::string fastcgi_pass;
 	std::string error_page;
@@ -29,6 +31,7 @@ class Location
 	std::string& get_root(std::string&);
 	std::string& get_error_page();
 	int get_error();
+	int get_redirect();
 
 };
 

@@ -1,19 +1,5 @@
 #include "webserv.hpp"
 
-void parse_server(Server& server, std::string& key, std::string& value)
-{
-	if (key == "listen")
-		server.set_host_port(value);
-	else if (key == "client_max_body_size")
-		server.set_body_size(value);
-	if (key == "autoindex")
-		server.set_autoindex(value);
-	else if (key == "root")
-		server.set_root(value);
-	else if (key == "error_page")
-		server.set_error_page(value);
-}
-
 void set_key_value(std::string& line, std::string& key, std::string& value)
 {
 	std::size_t pos = 0;
@@ -42,7 +28,7 @@ Server parsing(std::string& line)
 	Server server;
 
 	set_key_value(line, key, value);
-	set_server(server, key, value);
+	parse_server(server, key, value);
 	return server;
 }
 
