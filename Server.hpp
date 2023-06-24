@@ -20,6 +20,7 @@ class Server
         std::string& get_host();
         std::string& get_root();
         std::string& get_error_page();
+		int& get_error();
         std::string& get_autoindex();
         int& get_port();
         int& get_body_size();
@@ -28,6 +29,7 @@ class Server
         void set_body_size(std::string&);
         void set_autoindex(std::string&);
 		void set_root(std::string&);
+		void set_error_page(std::string&);
 };
 
 #endif

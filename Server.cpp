@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "webserv.hpp"
 
 void Server::set_host_port(std::string& host_port)
 {
@@ -70,4 +71,28 @@ void Server::set_root(std::string& root)
 std::string& Server::get_root()
 {
 	return (this->root);
+}
+
+void Server::set_error_page(std::string& error)
+{
+	size_t pos = 0;
+
+	while (pos < error.size() && error[pos] != ' ' && error[pos] != '\t')
+		pos++;
+	if (pos < error.size())
+	{
+		this->error = atoi(error.substr(0, pos).c_str());
+		this->error_page = error.substr(pos + 1);
+		str_trim(this->error_page);
+	}
+}
+
+int& Server::get_error()
+{
+	return (this->error);
+}
+
+std::string& Server::get_error_page()
+{
+	return (this->error_page);
 }

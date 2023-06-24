@@ -7,15 +7,11 @@ void set_server(Server& server, std::string& key, std::string& value)
 	else if (key == "client_max_body_size")
 		server.set_body_size(value);
 	if (key == "autoindex")
-	{
 		server.set_autoindex(value);
-		std::cout << "autoindex: " << server.get_autoindex() << std::endl; 
-	}
 	else if (key == "root")
-	{
 		server.set_root(value);
-		std::cout << "root: " << server.get_root() << std::endl;
-	}
+	else if (key == "error_page")
+		server.set_error_page(value);
 }
 
 void set_key_value(std::string& line, std::string& key, std::string& value)
@@ -28,14 +24,11 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 	if (pos < line.size())
 	{
 		key = line.substr(0, pos);
-		value = line.substr(pos+1);
-		str_trim(value);
+		value = line.substr(pos + 1);
 		std::size_t pos_ = value.find(';');
-		if (pos != std::string::npos)
-		{
-			value.erase(value.begin() + pos_);
-			std::cout << pos << std::endl;
-		}
+		if (pos_ != std::string::npos)
+			value = value.erase(pos_, 1);
+		str_trim(value);
 		str_trim(key);
 	}
 	else
@@ -50,7 +43,6 @@ Server parsing(std::string& line)
 
 	set_key_value(line, key, value);
 	set_server(server, key, value);
-	//std::cout << "key: " << key << " value: " << value << std::endl;
 	return server;
 }
 

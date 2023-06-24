@@ -9,7 +9,8 @@ class Location
     std::string try_file;
     int error;
     std::string return_;
-    std::string limit_except;
+    //std::string limit_except;
+	std::string allow_methods;
     std::string fastcgi_pass;
     std::string error_page;
     /*std::string proxy_pass;
