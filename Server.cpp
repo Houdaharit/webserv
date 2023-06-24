@@ -1,4 +1,4 @@
-#include "webserv.hpp"
+#include "Server.hpp"
 
 void Server::set_host_port(std::string& host_port)
 {
@@ -60,4 +60,14 @@ void Server::set_autoindex(std::string& autoindex)
 std::string& Server::get_autoindex()
 {
 	return (this->autoindex);
+}
+
+void Server::set_root(std::string& root)
+{
+	this->root = root;
+}
+
+std::string& Server::get_root()
+{
+	return (this->root);
 }

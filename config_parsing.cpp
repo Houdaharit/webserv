@@ -9,13 +9,15 @@ void set_server(Server& server, std::string& key, std::string& value)
 	if (key == "autoindex")
 	{
 		server.set_autoindex(value);
-		//std::cout << "autoindex: " << server.get_autoindex() << std::endl; 
+		std::cout << "autoindex: " << server.get_autoindex() << std::endl; 
 	}
 	else if (key == "root")
 	{
-		//set root
+		server.set_root(value);
+		std::cout << "root: " << server.get_root() << std::endl;
 	}
 }
+
 void set_key_value(std::string& line, std::string& key, std::string& value)
 {
 	std::size_t pos = 0;
@@ -28,6 +30,12 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 		key = line.substr(0, pos);
 		value = line.substr(pos+1);
 		str_trim(value);
+		std::size_t pos_ = value.find(';');
+		if (pos != std::string::npos)
+		{
+			value.erase(value.begin() + pos_);
+			std::cout << pos << std::endl;
+		}
 		str_trim(key);
 	}
 	else
