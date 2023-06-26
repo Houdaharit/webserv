@@ -26,9 +26,11 @@ Server parsing(std::string& line)
 	std::string key("");
 	std::string value("");
 	Server server;
+	Location location;
 
 	set_key_value(line, key, value);
 	parse_server(server, key, value);
+	parse_location(location, key, value);
 	return server;
 }
 

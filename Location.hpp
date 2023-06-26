@@ -25,13 +25,13 @@ class Location
 	void set_methods(std::string&);
 	void set_redirection(std::string&);
 	void set_root(std::string&);
-	std::string& get_index(std::string&);
-	std::vector<std::string>& get_methods(std::string&);
-	std::string& get_redirection(std::string&);
-	std::string& get_root(std::string&);
+	std::string& get_index();
+	std::vector<std::string>& get_methods();
+	std::string& get_redirection();
+	std::string& get_root();
 	std::string& get_error_page();
-	int get_error();
-	int get_redirect();
+	int& get_error();
+	int& get_redirect();
 
 };
 
