@@ -2,8 +2,6 @@
 #define SERVER_HPP
 #include "Location.hpp"
 
-class Location;
-
 class Server
 {
     int port;

@@ -4,7 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include "Location.hpp"
 #include "Server.hpp"
+
+class Location;
+class Server; 
 
 int check_conf_file(int argc, char** argv);
 void trim_front(std::string& str);
