@@ -26,6 +26,6 @@ void parse_location(Location& location, std::string& key, std::string& value)
 	else if (key == "return")
 	{
 		location.set_redirection(value);
-		//std::cout << "redirection: " << location.get_redirection() << std::endl;
+		std::cout << "redirection: " << location.get_redirection() << std::endl;
 	}
 }

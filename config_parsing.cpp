@@ -29,7 +29,7 @@ Server parsing(std::string& line)
 	Location location;
 
 	set_key_value(line, key, value);
-	std::cout << "key: " << key << " value: " << value << std::endl;
+	//std::cout << "key: " << key << " value: " << value << std::endl;
 	parse_server(server, key, value);
 	parse_location(location, key, value);
 	return server;
@@ -44,7 +44,7 @@ void read_file(std::ifstream& conffile)
 		while (line == "")
 		{
 			if (!getline(conffile, line))
-				break;
+				return ;
 		}
 		parsing(line);
 	}	
