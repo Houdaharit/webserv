@@ -14,9 +14,10 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 		std::size_t pos_ = value.find(';');
 		if (pos_ != std::string::npos)
 			value = value.erase(pos_, 1);
-		pos_ = value.find('{');
+		//A discuter
+/*		pos_ = value.find('{');
 		if (pos_ != std::string::npos)
-			value = value.erase(pos_, 1);
+			value = value.erase(pos_, 1);*/
 		str_trim(value);
 		str_trim(key);
 	}
