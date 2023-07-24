@@ -1,5 +1,28 @@
 #include "webserv.hpp" 
 
+Location::Location()
+{
+	this->path = "";
+	this->root = "";
+	this->index = "";
+	this->try_file = "";
+	this->error = 0;
+	this->redirection = "";
+	this->redirect = 0;
+	//this->allow_methods = ;
+	this->fastcgi_pass = "";
+	this->error_page = "";
+}
+
+Location::~Location()
+{
+	std::cout << "bye(Location)" << std::endl;
+}
+void Location::set_path(std::string& path)
+{
+	this->path = path;
+}
+
 void Location::set_root(std::string& root)
 {
 	this->root = root;
@@ -88,4 +111,9 @@ int& Location::get_error()
 int& Location::get_redirect()
 {
 	return (this->redirect);
+}
+
+std::string& Location::get_path()
+{
+	return (this->path);
 }

@@ -1,6 +1,22 @@
 #include "Server.hpp"
 #include "webserv.hpp"
 
+Server::Server()
+{
+	this->port = 0;
+	this->body_size = 0;
+	this->error = 0;
+	this->server_name = "";
+	this->host = "";
+	this->root = "";
+	this->error_page = "";
+	this->autoindex = "";
+}
+
+Server::~Server()
+{
+	std::cout << "bye(Server)" << std::endl;
+}
 void Server::set_host_port(std::string& host_port)
 {
 	std::size_t pos = host_port.find(':');

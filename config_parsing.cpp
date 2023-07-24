@@ -14,6 +14,9 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 		std::size_t pos_ = value.find(';');
 		if (pos_ != std::string::npos)
 			value = value.erase(pos_, 1);
+		pos_ = value.find('{');
+		if (pos_ != std::string::npos)
+			value = value.erase(pos_, 1);
 		str_trim(value);
 		str_trim(key);
 	}
@@ -29,7 +32,7 @@ Server parsing(std::string& line)
 	Location location;
 
 	set_key_value(line, key, value);
-	//std::cout << "key: " << key << " value: " << value << std::endl;
+	std::cout << "key: " << key << " value: " << value << std::endl;
 	parse_server(server, key, value);
 	parse_location(location, key, value);
 	return server;
