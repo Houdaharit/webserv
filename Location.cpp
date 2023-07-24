@@ -1,6 +1,6 @@
 #include "webserv.hpp" 
 
-Location::Location()
+Location::Location() : allow_methods()
 {
 	this->path = "";
 	this->root = "";
@@ -9,7 +9,6 @@ Location::Location()
 	this->error = 0;
 	this->redirection = "";
 	this->redirect = 0;
-	//this->allow_methods = ;
 	this->fastcgi_pass = "";
 	this->error_page = "";
 }
