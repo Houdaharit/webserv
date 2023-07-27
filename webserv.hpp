@@ -10,6 +10,11 @@
 class Location;
 class Server; 
 
+class Parseconf
+{
+	std::vector<Server> conf;
+};
+
 int check_conf_file(int argc, char** argv);
 void trim_front(std::string& str);
 void trim_back(std::string& str);
