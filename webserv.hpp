@@ -12,6 +12,7 @@ class Server;
 
 class Parseconf
 {
+	public:
 	std::vector<Server> conf;
 };
 
