@@ -12,11 +12,11 @@ class Server
 	std::string root;
 	std::string error_page;
 	std::string autoindex;
-	Location location;
+	std::vector<Location> location;
 	public:
 	Server();
 	~Server();
-	Location& get_location();
+	std::vector<Location>& get_location();
 	std::string& get_server_name();
 	std::string& get_host();
 	std::string& get_root();
@@ -31,6 +31,7 @@ class Server
 	void set_autoindex(std::string&);
 	void set_root(std::string&);
 	void set_error_page(std::string&);
+	void set_location(std::ifstream&, std::string&);
 };
 
 #endif

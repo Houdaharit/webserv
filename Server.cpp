@@ -113,12 +113,12 @@ std::string& Server::get_error_page()
 	return (this->error_page);
 }
 
-void Server::set_location(std::ifstream& confile)
+void Server::set_location(std::ifstream& confile, std::string& path)
 {
-	parse_location(this->location, confile)
+	this->location.push_back(parse_location(confile, path));
 }
 
-Location& Server::get_location()
+std::vector<Location>& Server::get_location()
 {
 	return (this->location);
 }

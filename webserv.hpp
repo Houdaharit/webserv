@@ -21,6 +21,6 @@ void trim_front(std::string& str);
 void trim_back(std::string& str);
 void str_trim(std::string& str);
 Server parse_server(std::ifstream&);
-void parse_location(Location&, std::ifstream&);
+Location parse_location(std::ifstream&, std::string&);
 void set_key_value(std::string&, std::string&, std::string&);
 #endif

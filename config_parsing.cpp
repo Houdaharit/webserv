@@ -15,28 +15,14 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 		if (pos_ != std::string::npos)
 			value = value.erase(pos_, 1);
 		//A discuter
-/*		pos_ = value.find('{');
-		if (pos_ != std::string::npos)
-			value = value.erase(pos_, 1);*/
+		/*		pos_ = value.find('{');
+				if (pos_ != std::string::npos)
+				value = value.erase(pos_, 1);*/
 		str_trim(value);
 		str_trim(key);
 	}
 	else
 		key = line;
-}
-
-Server parsing(std::string& line)
-{
-	std::string key("");
-	std::string value("");
-	Server server;
-	Location location;
-
-	set_key_value(line, key, value);
-//	std::cout << "key: " << key << " value: " << value << std::endl;
-	//parse_server(server, key, value);
-	parse_location(location, key, value);
-	return server;
 }
 
 void read_file(std::ifstream& conffile)
@@ -45,7 +31,6 @@ void read_file(std::ifstream& conffile)
 	std::string key;
 	std::string value;
 	Parseconf config;
-	int i = 0;
 
 	while (getline(conffile, line))
 	{
@@ -57,10 +42,8 @@ void read_file(std::ifstream& conffile)
 		set_key_value(line, key, value);
 		if (key == "server")
 		{
-			//std::cout << "Parse server" << std::endl;
-			config.conf.push_back(parse_server(conffile));
-			std::cout << "error page: " << config.conf[i].get_error_page() << std::endl;
-			i++;
+			if (conffile)
+				config.conf.push_back(parse_server(conffile));
 		}
 	}	
 }

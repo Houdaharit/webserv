@@ -4,14 +4,21 @@ Server parse_server(std::ifstream& conffile)
 {
 	std::string key, value, line;
 	Server server;
+	int i = 0;
 
 	while (getline(conffile, line))
 	{
+		set_key_value(line, key, value);
 		if (key == "}")
 			break;
-		set_key_value(line, key, value);
 		if (key == "location")
-			parse_location(Server.location);
+		{
+			if (conffile)
+				server.set_location(conffile, value);
+			std::cout << "location " << i << std::endl;
+			std::cout << "Error page: " << server.get_location()[i].get_error_page() << std::endl;
+			i++;
+		}
 		if (key == "listen")
 			server.set_host_port(value);
 		else if (key == "client_max_body_size")
