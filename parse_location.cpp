@@ -1,7 +1,10 @@
 #include "webserv.hpp"
 
-void parse_location(Location& location, std::string& key, std::string& value)
+void parse_location(Location& location, std::ifstream& confile)
 {
+	std::string key, value, line;
+
+
 	if (key == "location")
 	{
 		location.set_path(value);

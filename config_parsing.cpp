@@ -34,7 +34,7 @@ Server parsing(std::string& line)
 
 	set_key_value(line, key, value);
 //	std::cout << "key: " << key << " value: " << value << std::endl;
-	parse_server(server, key, value);
+	//parse_server(server, key, value);
 	parse_location(location, key, value);
 	return server;
 }
@@ -45,7 +45,7 @@ void read_file(std::ifstream& conffile)
 	std::string key;
 	std::string value;
 	Parseconf config;
-	Server server;
+	int i = 0;
 
 	while (getline(conffile, line))
 	{
@@ -58,9 +58,9 @@ void read_file(std::ifstream& conffile)
 		if (key == "server")
 		{
 			//std::cout << "Parse server" << std::endl;
-			parse_server(server, key, value);
-			std::cout << "Server name: " << server.get_error_page() << std::endl;
-			config.conf.push_back(server);
+			config.conf.push_back(parse_server(conffile));
+			std::cout << "error page: " << config.conf[i].get_error_page() << std::endl;
+			i++;
 		}
 	}	
 }

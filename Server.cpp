@@ -112,3 +112,14 @@ std::string& Server::get_error_page()
 {
 	return (this->error_page);
 }
+
+void Server::set_location(std::ifstream& confile)
+{
+	parse_location(this->location, confile)
+}
+
+Location& Server::get_location()
+{
+	return (this->location);
+}
+	

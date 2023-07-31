@@ -16,6 +16,7 @@ class Server
 	public:
 	Server();
 	~Server();
+	Location& get_location();
 	std::string& get_server_name();
 	std::string& get_host();
 	std::string& get_root();
