@@ -30,7 +30,7 @@ void read_file(std::ifstream& conffile)
 	std::string line;
 	std::string key;
 	std::string value;
-	Parseconf config;
+	ParseConf config;
 
 	while (getline(conffile, line))
 	{
@@ -43,7 +43,7 @@ void read_file(std::ifstream& conffile)
 		if (key == "server")
 		{
 			if (conffile)
-				config.conf.push_back(parse_server(conffile));
+				config.servers.push_back(parse_server(conffile));
 		}
 	}	
 }

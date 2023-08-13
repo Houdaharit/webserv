@@ -15,7 +15,7 @@ Server::Server()
 
 Server::~Server()
 {
-	std::cout << "bye(Server)" << std::endl;
+//	std::cout << "bye(Server)" << std::endl;
 }
 void Server::set_host_port(std::string& host_port)
 {

@@ -15,7 +15,7 @@ Location::Location() : allow_methods()
 
 Location::~Location()
 {
-	std::cout << "bye(Location)" << std::endl;
+//	std::cout << "bye(Location)" << std::endl;
 }
 void Location::set_path(std::string& path)
 {

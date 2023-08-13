@@ -41,12 +41,13 @@ void trim_back(std::string& str)
 {
 	std::size_t pos;
 
-	pos = str.size() - 1;
-	while (pos > 0 && (str[pos] == ' ' || str[pos] == '\t'))
+	pos = str.size();
+	while (pos > 1 && (str[pos - 1] == ' ' || str[pos - 1] == '\t'))
 		pos--;
-	if (pos == 0)
+	if (pos == 1)
 		return ;
-	str = str.substr(0, pos + 1);
+	//sus error
+	str = str.substr(0, pos);
 }
 
 void str_trim(std::string& str)

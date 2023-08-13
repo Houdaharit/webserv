@@ -10,10 +10,10 @@
 class Location;
 class Server; 
 
-class Parseconf
+class ParseConf
 {
 	public:
-	std::vector<Server> conf;
+	std::vector<Server> servers;
 };
 
 int check_conf_file(int argc, char** argv);
