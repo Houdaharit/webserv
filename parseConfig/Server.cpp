@@ -1,5 +1,5 @@
 #include "Server.hpp"
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 Server::Server()
 {

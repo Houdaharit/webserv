@@ -2,7 +2,7 @@
 #define LOCATION_HPP
 #include <iostream>
 #include <vector>
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 class Location
 {

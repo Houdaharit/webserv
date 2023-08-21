@@ -1,4 +1,4 @@
-#include "webserv.hpp" 
+#include "../webserv.hpp" 
 
 Location::Location() : allow_methods()
 {

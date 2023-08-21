@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include "Location.hpp"
-#include "Server.hpp"
+#include "parseConfig/Location.hpp"
+#include "parseConfig/Server.hpp"
 
 class Location;
 class Server; 

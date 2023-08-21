@@ -4,7 +4,9 @@ CC = c++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g3
 
-SRC = config_parsing.cpp parsing_outils.cpp Server.cpp parse_server.cpp Location.cpp parse_location.cpp
+SRC = parseConfig/config_parsing.cpp parseConfig/parsing_outils.cpp\
+      parseConfig/Server.cpp parseConfig/parse_server.cpp parseConfig/Location.cpp\
+      parseConfig/parse_location.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

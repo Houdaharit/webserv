@@ -1,4 +1,4 @@
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 Location parse_location(std::ifstream& confile, std::string& path)
 {
