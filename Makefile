@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g3
 
 SRC = parseConfig/config_parsing.cpp parseConfig/parsing_outils.cpp\
       parseConfig/Server.cpp parseConfig/parse_server.cpp parseConfig/Location.cpp\
-      parseConfig/parse_location.cpp
+      parseConfig/parse_location.cpp parseRequest/Request.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
