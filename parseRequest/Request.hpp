@@ -8,7 +8,7 @@ class Request
 	std::string httpMethod;
 	std::string httpVersion;
 	std::string uri;
-	std::map<std::string, std::string> requestHeaders;
+	std::map<std::string, std::string> headers;
 	public:
 	Request();
 	void set_httpMethod(std::string&);
@@ -17,7 +17,7 @@ class Request
 	std::string& get_httpMethod();
 	std::string& get_httpVersion();
 	std::string& get_uri();
-	std::map<std::string, std::string>& get_requestHeaders();
+	std::map<std::string, std::string>& get_headers();
 	~Request();
 };
 #endif
