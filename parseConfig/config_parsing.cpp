@@ -52,7 +52,7 @@ void conf_parsing(int argc, char **argv)
 {
 	std::ifstream conffile;
 
-	if (!check_conf_file(argc, argv))
+	if (!check_file(argc, argv))
 	{
 		conffile.open(argv[1]);
 		read_file(conffile);
