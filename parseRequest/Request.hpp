@@ -3,21 +3,27 @@
 #include "../webserv.hpp"
 #include <map>
 
-class Request
+class HttpRequest
 {
 	std::string httpMethod;
 	std::string httpVersion;
 	std::string uri;
 	std::map<std::string, std::string> headers;
 	public:
-	Request();
+	void parse(std::string&);
+	HttpRequest();
+	~HttpRequest();
+
+	/*setters*/
+	void set_request(std::string&);
 	void set_httpMethod(std::string&);
 	void set_httpVersion(std::string&);
 	void set_uri(std::string&);
+
+	/*getters*/
 	std::string& get_httpMethod();
 	std::string& get_httpVersion();
 	std::string& get_uri();
 	std::map<std::string, std::string>& get_headers();
-	~Request();
 };
 #endif

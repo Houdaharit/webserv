@@ -60,9 +60,9 @@ void conf_parsing(int argc, char **argv)
 	}
 }
 
-int main(int argc, char** argv)
+/*int main(int argc, char** argv)
 {
 	Server server;
 	conf_parsing(argc, argv);
 	return (0);
-}
+}*/
