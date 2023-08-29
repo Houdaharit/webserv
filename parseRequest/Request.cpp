@@ -9,6 +9,19 @@ HttpRequest::~HttpRequest()
 {
 }
 
+void HttpRequest::set_request(std::string& request_line)
+{
+	std::vector<std::string> request = split(request_line, ' ');
+	if (request.size() != 3)
+		std::cout << "Throw Exception" << std::endl;
+	/*define them*/
+	/*
+	   set_httpMethod(request[0]);
+	   set_uri(request[1]);
+	   set_httpVersion(request[2]);
+	   */
+}
+
 void HttpRequest::parse(std::string& read_request)
 {
 	std::string CRLF("\r\n");
