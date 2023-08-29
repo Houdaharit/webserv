@@ -25,5 +25,7 @@ class HttpRequest
 	std::string& get_httpVersion();
 	std::string& get_uri();
 	std::map<std::string, std::string>& get_headers();
+	
+	void is_method(std::string&);
 };
 #endif
