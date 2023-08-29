@@ -16,11 +16,12 @@ class ParseConf
 	std::vector<Server> servers;
 };
 
-int check_conf_file(int argc, char** argv);
+int check_file(int argc, char** argv);
 void trim_front(std::string& str);
 void trim_back(std::string& str);
 void str_trim(std::string& str);
 Server parse_server(std::ifstream&);
 Location parse_location(std::ifstream&, std::string&);
 void set_key_value(std::string&, std::string&, std::string&);
+std::vector<std::string> split(std::string&, char);
 #endif
