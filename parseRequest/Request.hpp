@@ -19,6 +19,7 @@ class HttpRequest
 	void set_httpMethod(std::string&);
 	void set_httpVersion(std::string&);
 	void set_uri(std::string&);
+	void set_headers(std::string&);
 
 	/*getters*/
 	std::string& get_httpMethod();
@@ -27,5 +28,6 @@ class HttpRequest
 	std::map<std::string, std::string>& get_headers();
 	
 	void is_method(std::string&);
+	void printHeaders();
 };
 #endif
