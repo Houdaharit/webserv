@@ -55,6 +55,19 @@ void HttpRequest::set_request(std::string& request_line)
 	   
 }
 
+void HttpRequest::set_headers(std::string& headers)
+{
+	std::string CRLF("\r\n");
+size_t crlf_pos;
+
+while(headers.find(CRLF) != std::string::npos)
+{
+	crlf_pos = headers.find(CRLF);
+	
+}
+
+}
+
 void HttpRequest::parse(std::string& read_request)
 {
 	std::string CRLF("\r\n");
