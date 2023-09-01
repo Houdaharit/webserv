@@ -95,11 +95,25 @@ void HttpRequest::set_headers(std::string& headers)
 
 }
 
+void HttpRequest::set_body(std::string& body)
+{
+	std::map<std::string, std::string>::iterator it = this->headers.find("Transfer-Encoding");
+	if (it != std::string::npos && it->second == "chunked")
+		std::cout << "Chunked body" << std::endl;
+	else
+	{
+		this->body = body;
+		//maybe copy it into a file
+	}
+
+}
+
 void HttpRequest::parse(std::string& read_request)
 {
 	std::string CRLF("\r\n");
 	std::string request_line;
 	std::string headers_lines;
+	std::sting rest;
 	size_t pos;
 
 	pos = read_request.find(CRLF);
@@ -109,12 +123,18 @@ void HttpRequest::parse(std::string& read_request)
 		headers_lines = read_request.substr(pos + 2);
 		set_request(request_line);
 		set_headers(headers_lines);
+		rest = headers_lines;
 
 		std::map<std::string, std::string>::iterator it = this->headers.find("Content-Length");
 		if (it != this->headers.end())
+		{
+			set_body(rest);
 			std::cout << "body" << std::endl;
+		}
 		//throw exception
 		else if (this->httpMethod == "POST" || this->httpMethod == "PUT")
 			std::cout << "Throw exception Content-Length" << std::endl;
+		//Transfer-Encoding=chunked
 	}
+	//think about throwing exception weird request
 }

@@ -20,11 +20,13 @@ class HttpRequest
 	void set_httpVersion(std::string&);
 	void set_uri(std::string&);
 	void set_headers(std::string&);
+	void set_body(std::string&);
 
 	/*getters*/
 	std::string& get_httpMethod();
 	std::string& get_httpVersion();
 	std::string& get_uri();
+	std::string& get_body();
 	std::map<std::string, std::string>& get_headers();
 	
 	void is_method(std::string&);
