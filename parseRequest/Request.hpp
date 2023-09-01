@@ -9,6 +9,7 @@ class HttpRequest
 	std::string httpVersion;
 	std::string uri;
 	std::map<std::string, std::string> headers;
+	std::string requestBody;
 	public:
 	void parse(std::string&);
 	HttpRequest();
