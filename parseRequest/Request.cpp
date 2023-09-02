@@ -39,6 +39,7 @@ void HttpRequest::set_uri(std::string& uri)
 
 void HttpRequest::set_httpVersion(std::string& version)
 {
+	//check version
 	this->httpVersion = version;
 }
 
@@ -77,35 +78,33 @@ void HttpRequest::set_headers(std::string& headers)
 		crlf_pos = headers.find(CRLF);
 		header_line = headers.substr(0, crlf_pos);
 		headers = headers.substr(crlf_pos + 2);
+		if (header_line.empty())
+			break;
 		delim_pos = header_line.find(":");
 		if (delim_pos != std::string::npos)
 		{
 			key = header_line.substr(0, delim_pos);
 			value = header_line.substr(delim_pos + 1);
+			trim_front(value);
 			this->headers.insert(std::pair<std::string, std::string>(key, value));
 		}
-		else
-		{
-			//add case when header value is long
-			std::cout << "End headers" << std::endl;
-			break;
-		}
+		//unfold multiple-line header field
 	}
-		printHeaders();
+	printHeaders();
 
 }
 
 void HttpRequest::set_body(std::string& body)
 {
 	std::map<std::string, std::string>::iterator it = this->headers.find("Transfer-Encoding");
+	if (it != this->headers.end())
+		std::cout << it->second << std::endl;
 	if (it != this->headers.end() && it->second == "chunked")
-	{
 		std::cout << "Chunked body" << std::endl;
-		//parse chunked body
-	}
 	else
 	{
 		this->requestBody = body;
+		std::cout << body << std::endl;
 		//maybe copy it into a file
 	}
 
@@ -128,15 +127,13 @@ void HttpRequest::parse(std::string& read_request)
 		set_headers(headers_lines);
 		rest = headers_lines;
 
-		std::map<std::string, std::string>::iterator it = this->headers.find("Content-Length");
-		if (it != this->headers.end())
-		{
+		std::map<std::string, std::string>::iterator it_length = this->headers.find("Content-Length");
+		std::map<std::string, std::string>::iterator it_chunk = this->headers.find("Transfer-Encoding");
+		if (it_length != this->headers.end() || it_chunk != this->headers.end())
 			set_body(rest);
-			std::cout << "body" << std::endl;
-		}
 		//throw exception
-		else if (this->httpMethod == "POST" || this->httpMethod == "PUT")
-			std::cout << "Throw exception Content-Length" << std::endl;
+		/*else if (this->httpMethod == "POST" || this->httpMethod == "PUT")
+		  std::cout << "Throw exception Content-Length" << std::endl;*/
 		//Transfer-Encoding=chunked
 	}
 	//think about throwing exception weird request
