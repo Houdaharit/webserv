@@ -100,11 +100,15 @@ void HttpRequest::set_body(std::string& body)
 	if (it != this->headers.end())
 		std::cout << it->second << std::endl;
 	if (it != this->headers.end() && it->second == "chunked")
-		std::cout << "Chunked body" << std::endl;
+	{
+		//change it
+		this->requestBody = body;
+		std::cout << this->requestBody << std::endl;
+	}
 	else
 	{
 		this->requestBody = body;
-		std::cout << body << std::endl;
+		std::cout << this->requestBody << std::endl;
 		//maybe copy it into a file
 	}
 
