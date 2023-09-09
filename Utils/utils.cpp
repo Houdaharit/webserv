@@ -73,3 +73,16 @@ std::vector<std::string> split(std::string& str, char delim)
 	split_str.push_back(str);
 	return split_str;
 }
+
+bool isHexadecimal(std::string& str)
+{
+
+	if (str.empty())
+		return false;
+	for(size_t i = 0; i < str.size(); i++)
+	{
+		if (!std::isxdigit(str[i]))
+			return false;
+	}
+	return true;
+}

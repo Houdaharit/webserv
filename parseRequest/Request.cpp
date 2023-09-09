@@ -104,11 +104,13 @@ void HttpRequest::set_headers(std::string& headers)
 
 void HttpRequest::set_body(std::string& body)
 {
-	//set unchunked body
-(void)body;	
-if (this->chunkedBody)
-	std::cout << "chunked" << std::endl;
-	//set chunked body
+	(void)body;	
+	if (this->chunkedBody)
+	{
+
+	}
+	else
+		this->requestBody = body;
 }
 
 void HttpRequest::parse(std::string& read_request)

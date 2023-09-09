@@ -24,4 +24,5 @@ Server parse_server(std::ifstream&);
 Location parse_location(std::ifstream&, std::string&);
 void set_key_value(std::string&, std::string&, std::string&);
 std::vector<std::string> split(std::string&, char);
+bool isHexadecimal(std::string&);
 #endif
