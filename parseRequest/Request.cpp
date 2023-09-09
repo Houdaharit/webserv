@@ -1,6 +1,6 @@
 #include "Request.hpp"
 
-HttpRequest::HttpRequest(): httpMethod(""), httpVersion(""), uri("")
+HttpRequest::HttpRequest(): httpMethod(""), httpVersion(""), uri(""), chunkedBody(false), isBody(false)
 {
 
 }
@@ -23,6 +23,16 @@ void HttpRequest::is_method(std::string& method)
 	}
 	//throw exception
 	std::cout << "Method exception" << std::endl;
+}
+
+void HttpRequest::is_body()
+{
+	std::map<std::string, std::string>::iterator it_length = this->headers.find("Content-Length");
+	std::map<std::string, std::string>::iterator it_chunk = this->headers.find("Transfer-Encoding");
+	if (it_length != this->headers.end() || it_chunk != this->headers.end())
+		this->isBody = true;
+	if (it_chunk != this->headers.end())
+		this->chunkedBody = true;
 }
 
 void HttpRequest::set_httpMethod(std::string& method)
@@ -48,7 +58,6 @@ void HttpRequest::set_request(std::string& request_line)
 	std::vector<std::string> request = split(request_line, ' ');
 	if (request.size() != 3)
 		std::cout << "Throw Exception" << std::endl;
-	/*define them*/
 
 	set_httpMethod(request[0]);
 	set_uri(request[1]);
@@ -90,28 +99,16 @@ void HttpRequest::set_headers(std::string& headers)
 		}
 		//unfold multiple-line header field
 	}
-	printHeaders();
-
+	//	printHeaders();
 }
 
 void HttpRequest::set_body(std::string& body)
 {
-	std::map<std::string, std::string>::iterator it = this->headers.find("Transfer-Encoding");
-	if (it != this->headers.end())
-		std::cout << it->second << std::endl;
-	if (it != this->headers.end() && it->second == "chunked")
-	{
-		//change it
-		this->requestBody = body;
-		std::cout << this->requestBody << std::endl;
-	}
-	else
-	{
-		this->requestBody = body;
-		std::cout << this->requestBody << std::endl;
-		//maybe copy it into a file
-	}
-
+	//set unchunked body
+(void)body;	
+if (this->chunkedBody)
+	std::cout << "chunked" << std::endl;
+	//set chunked body
 }
 
 void HttpRequest::parse(std::string& read_request)
@@ -124,21 +121,18 @@ void HttpRequest::parse(std::string& read_request)
 
 	pos = read_request.find(CRLF);
 	if (pos != std::string::npos)
-	{
+	{	
 		request_line = read_request.substr(0, pos);
 		headers_lines = read_request.substr(pos + 2);
 		set_request(request_line);
 		set_headers(headers_lines);
 		rest = headers_lines;
 
-		std::map<std::string, std::string>::iterator it_length = this->headers.find("Content-Length");
-		std::map<std::string, std::string>::iterator it_chunk = this->headers.find("Transfer-Encoding");
-		if (it_length != this->headers.end() || it_chunk != this->headers.end())
+		is_body();
+		if (this->isBody)
 			set_body(rest);
-		//throw exception
 		/*else if (this->httpMethod == "POST" || this->httpMethod == "PUT")
 		  std::cout << "Throw exception Content-Length" << std::endl;*/
-		//Transfer-Encoding=chunked
 	}
 	//think about throwing exception weird request
 }

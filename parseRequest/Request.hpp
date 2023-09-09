@@ -10,6 +10,8 @@ class HttpRequest
 	std::string uri;
 	std::map<std::string, std::string> headers;
 	std::string requestBody;
+	bool chunkedBody;
+	bool isBody;
 	public:
 	void parse(std::string&);
 	HttpRequest();
@@ -31,6 +33,7 @@ class HttpRequest
 	std::map<std::string, std::string>& get_headers();
 	
 	void is_method(std::string&);
+	void is_body();
 	void printHeaders();
 };
 #endif
