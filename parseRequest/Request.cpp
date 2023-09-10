@@ -102,13 +102,34 @@ void HttpRequest::set_headers(std::string& headers)
 	//	printHeaders();
 }
 
+void HttpRequest::unchunkBody(std::string& body)
+{
+	std::string chunk;
+	std::string CRLF("\r\n");
+	size_t CRLF_pos;
+
+	while(1)
+	{
+		CRLF_pos = body.find(CRLF);
+		if (CRLF_pos == 0)
+			break;
+		chunk = body.substr(0, CRLF_pos);
+		body = body.substr(CRLF_pos + 2);
+		if (chunk == "0")
+			break;
+		else if (isHexadecimal(chunk))
+			continue;
+		this->requestBody = this->requestBody + chunk;
+	}
+	std::cout << this->requestBody << std::endl;
+}
+
 void HttpRequest::set_body(std::string& body)
 {
 	(void)body;	
+	std::string chunk;
 	if (this->chunkedBody)
-	{
-
-	}
+		unchunkBody(body);
 	else
 		this->requestBody = body;
 }

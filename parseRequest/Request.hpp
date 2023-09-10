@@ -35,5 +35,6 @@ class HttpRequest
 	void is_method(std::string&);
 	void is_body();
 	void printHeaders();
+	void unchunkBody(std::string&);
 };
 #endif
