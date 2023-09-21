@@ -1,8 +1,7 @@
 #include "Request.hpp"
 
-HttpRequest::HttpRequest(): httpMethod(""), httpVersion(""), uri(""), chunkedBody(false), isBody(false)
+HttpRequest::HttpRequest(): httpMethod(""), httpVersion(""), uri(""), requestBody(""), chunkedBody(false), isBody(false)
 {
-
 }
 
 HttpRequest::~HttpRequest()
