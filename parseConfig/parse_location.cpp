@@ -11,7 +11,6 @@ Location parse_location(std::ifstream& confile, std::string& path)
 		set_key_value(line, key, value);
 		if (key == "}")
 			break;
-		std::cout << "key: "<< key << std::endl;
 		if (key == "root")
 		{
 			location.set_root(value);
@@ -24,8 +23,10 @@ Location parse_location(std::ifstream& confile, std::string& path)
 		}
 		else if (key == "error_page")
 		{
-			location.set_error_page(value);
-			//std::cout << "error page: " << location.get_error_page() << std::endl;
+			location.set_errorPage(value);
+			for(size_t i = 0; i < location.get_statusCode().size(); i++)
+				std::cout << "statusCode: " << location.get_statusCode()[i] << std::endl;
+			std::cout << "error page: " << location.get_errorPage() << std::endl;
 		}
 		else if (key == "limit_except")
 		{
@@ -41,7 +42,7 @@ Location parse_location(std::ifstream& confile, std::string& path)
 		else if (key == "upload")
 		{
 			location.set_upload(value);
-			std::cout << "upload: "<< location.get_upload() << std::endl;
+		//	std::cout << "upload: "<< location.get_upload() << std::endl;
 		}
 	}
 	return location;

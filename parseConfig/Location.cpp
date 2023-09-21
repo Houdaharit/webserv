@@ -1,21 +1,20 @@
 #include "../webserv.hpp" 
 
-Location::Location() : allow_methods()
+Location::Location()
 {
 	this->path = "";
 	this->root = "";
 	this->index = "";
 	this->try_file = "";
-	this->error = 0;
 	this->redirection = "";
 	this->redirect = 0;
 	this->fastcgi_pass = "";
-	this->error_page = "";
+	this->errorPage = "";
 }
 
 Location::~Location()
 {
-//	std::cout << "bye(Location)" << std::endl;
+	//	std::cout << "bye(Location)" << std::endl;
 }
 void Location::set_path(std::string& path)
 {
@@ -32,17 +31,23 @@ void Location::set_index(std::string& index)
 	this->index = index;
 }
 
-void Location::set_error_page(std::string& error)
+void Location::set_errorPage(std::string& error)
 {
 	size_t pos = 0;
+	size_t i = 0;
 
-	while (pos < error.size() && error[pos] != ' ' && error[pos] != '\t')
-		pos++;
-	if (pos < error.size())
+	while (pos < error.size())
 	{
-		this->error = atoi(error.substr(0, pos).c_str());
-		this->error_page = error.substr(pos + 1);
-		str_trim(this->error_page);
+		while (pos < error.size() && error[pos] != ' ' && error[pos] != '\t')
+			pos++;
+		std::string tmp = error.substr(i, pos - i);
+		if (isNumber(tmp))
+		this->statusCode.push_back(atoi(tmp.c_str()));
+		else
+			this->errorPage = tmp;
+		while (pos < error.size() && (error[pos] == ' ' || error[pos] == '\t'))
+			pos++;
+		i = pos;
 	}
 }
 
@@ -70,7 +75,7 @@ void Location::set_methods(std::string& methods)
 		while (pos < methods.size() && methods[pos] != ' ' && methods[pos] != '\t')
 			pos++;
 		std::string tmp = methods.substr(i, pos - i);
-		this->allow_methods.push_back(tmp);
+		this->methods.push_back(tmp);
 		while (pos < methods.size() && (methods[pos] == ' ' || methods[pos] == '\t'))
 			pos++;
 		i = pos;
@@ -84,7 +89,7 @@ void Location::set_upload(std::string& upload)
 
 std::vector<std::string>& Location::get_methods()
 {
-	return (this->allow_methods);
+	return (this->methods);
 }
 
 std::string& Location::get_root()
@@ -97,9 +102,9 @@ std::string& Location::get_index()
 	return (this->index);
 }
 
-std::string& Location::get_error_page()
+std::string& Location::get_errorPage()
 {
-	return (this->error_page);
+	return (this->errorPage);
 }
 
 std::string& Location::get_redirection()
@@ -107,9 +112,9 @@ std::string& Location::get_redirection()
 	return (this->redirection);
 }
 
-int& Location::get_error()
+std::vector<int>& Location::get_statusCode()
 {
-	return (this->error);
+	return (this->statusCode);
 }
 
 int& Location::get_redirect()

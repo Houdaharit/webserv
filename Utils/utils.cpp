@@ -86,3 +86,16 @@ bool isHexadecimal(std::string& str)
 	}
 	return true;
 }
+
+bool isNumber(std::string& str)
+{
+
+	if (str.empty())
+		return false;
+	for(size_t i = 0; i < str.size(); i++)
+	{
+		if (!std::isdigit(str[i]))
+			return false;
+	}
+	return true;
+}

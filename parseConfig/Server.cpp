@@ -4,12 +4,11 @@
 Server::Server()
 {
 	this->port = 0;
-	this->body_size = 0;
-	this->error = 0;
-	this->server_name = "";
+	this->bodySize = 0;
+	this->serverName = "";
 	this->host = "";
 	this->root = "";
-	this->error_page = "";
+	this->errorPage = "";
 	this->autoindex = "";
 }
 
@@ -32,41 +31,41 @@ std::string& Server::get_host()
 	return (this->host);
 }
 
-int& Server::get_port()
+short& Server::get_port()
 {
 	return (this->port);
 }
 
-void Server::set_body_size(std::string& body_size)
+void Server::set_bodySize(std::string& bodySize)
 {
 	size_t i = 0;
 	int m = 0;
 
-	while(i < body_size.size())
+	while(i < bodySize.size())
 	{
 		if (m > 0)
 		{
-			this->body_size = -1;
+			this->bodySize = -1;
 			return ;
 		}
-		if (!isdigit(body_size[i]))
+		if (!isdigit(bodySize[i]))
 		{
-			if (body_size[i] == 'm' || body_size[i] == 'M')
+			if (bodySize[i] == 'm' || bodySize[i] == 'M')
 				m++;
 			else
 			{
-				this->body_size = -1;
+				this->bodySize = -1;
 				return ;
 			}
 		}
 		i++;
 	}
-	this->body_size = atoi(body_size.c_str());
+	this->bodySize = atoi(bodySize.c_str());
 }
 
-int& Server::get_body_size()
+int& Server::get_bodySize()
 {
-	return (this->body_size);
+	return (this->bodySize);
 }
 
 void Server::set_autoindex(std::string& autoindex)
@@ -89,28 +88,35 @@ std::string& Server::get_root()
 	return (this->root);
 }
 
-void Server::set_error_page(std::string& error)
+void Server::set_errorPage(std::string& error)
 {
-	size_t pos = 0;
+        size_t pos = 0;
+        size_t i = 0;
 
-	while (pos < error.size() && error[pos] != ' ' && error[pos] != '\t')
-		pos++;
-	if (pos < error.size())
-	{
-		this->error = atoi(error.substr(0, pos).c_str());
-		this->error_page = error.substr(pos + 1);
-		str_trim(this->error_page);
-	}
+        while (pos < error.size())
+        {
+                while (pos < error.size() && error[pos] != ' ' && error[pos] != '\t')
+                        pos++;
+                std::string tmp = error.substr(i, pos - i);
+                if (isNumber(tmp))
+                this->statusCode.push_back(atoi(tmp.c_str()));
+                else
+                        this->errorPage = tmp;
+                while (pos < error.size() && (error[pos] == ' ' || error[pos] == '\t'))
+                        pos++;
+                i = pos;
+        }
+
 }
 
-int& Server::get_error()
+std::vector<int>& Server::get_statusCode()
 {
-	return (this->error);
+	return (this->statusCode);
 }
 
-std::string& Server::get_error_page()
+std::string& Server::get_errorPage()
 {
-	return (this->error_page);
+	return (this->errorPage);
 }
 
 void Server::set_location(std::ifstream& confile, std::string& path)

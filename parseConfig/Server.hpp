@@ -4,33 +4,37 @@
 
 class Server
 {
-	int port;
-	int body_size;
-	int error;
-	std::string server_name;
+	short port;
 	std::string host;
+	int bodySize;
+	std::vector<int> statusCode;
+	std::string serverName;
 	std::string root;
-	std::string error_page;
+	std::string errorPage;
 	std::string autoindex;
 	std::vector<Location> location;
 	public:
 	Server();
 	~Server();
+
+	/*getters*/
 	std::vector<Location>& get_location();
-	std::string& get_server_name();
+	std::string& get_serverName();
 	std::string& get_host();
 	std::string& get_root();
-	std::string& get_error_page();
-	int& get_error();
+	std::string& get_errorPage();
+	std::vector<int>& get_statusCode();
 	std::string& get_autoindex();
-	int& get_port();
-	int& get_body_size();
+	short& get_port();
+	int& get_bodySize();
+
+	/*setters*/
 	void set_host_port(std::string&);
-	void set_server_name(std::string&);
-	void set_body_size(std::string&);
+	void set_serverName(std::string&);
+	void set_bodySize(std::string&);
 	void set_autoindex(std::string&);
 	void set_root(std::string&);
-	void set_error_page(std::string&);
+	void set_errorPage(std::string&);
 	void set_location(std::ifstream&, std::string&);
 };
 
