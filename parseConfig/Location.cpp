@@ -77,6 +77,11 @@ void Location::set_methods(std::string& methods)
 	}
 }
 
+void Location::set_upload(std::string& upload)
+{
+	this->upload = upload;
+}
+
 std::vector<std::string>& Location::get_methods()
 {
 	return (this->allow_methods);
@@ -115,4 +120,9 @@ int& Location::get_redirect()
 std::string& Location::get_path()
 {
 	return (this->path);
+}
+
+std::string& Location::get_upload()
+{
+	return (this->upload);
 }

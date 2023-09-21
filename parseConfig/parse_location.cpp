@@ -11,6 +11,7 @@ Location parse_location(std::ifstream& confile, std::string& path)
 		set_key_value(line, key, value);
 		if (key == "}")
 			break;
+		std::cout << "key: "<< key << std::endl;
 		if (key == "root")
 		{
 			location.set_root(value);
@@ -36,6 +37,11 @@ Location parse_location(std::ifstream& confile, std::string& path)
 		{
 			location.set_redirection(value);
 			//std::cout << "redirection: " << location.get_redirection() << std::endl;
+		}
+		else if (key == "upload")
+		{
+			location.set_upload(value);
+			std::cout << "upload: "<< location.get_upload() << std::endl;
 		}
 	}
 	return location;
