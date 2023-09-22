@@ -24,9 +24,6 @@ Location parse_location(std::ifstream& confile, std::string& path)
 		else if (key == "error_page")
 		{
 			location.set_errorPage(value);
-			for(size_t i = 0; i < location.get_statusCode().size(); i++)
-				std::cout << "statusCode: " << location.get_statusCode()[i] << std::endl;
-			std::cout << "error page: " << location.get_errorPage() << std::endl;
 		}
 		else if (key == "limit_except")
 		{

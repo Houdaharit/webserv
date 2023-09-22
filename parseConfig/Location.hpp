@@ -8,14 +8,13 @@ class Location
 {
 	std::string path;
 	std::string root;
-	std::string index; //change it to a vector
+	std::vector<std::string> index;
 	std::string try_file;
-	std::vector<int> statusCode; //I need to change it to a vector
 	std::string redirection;
 	int redirect;
 	std::vector<std::string> methods;
 	std::string fastcgi_pass;
-	std::string errorPage;
+	std::vector<std::pair<std::vector<std::string>, std::string> > errorPage;
 	std::string upload;
 	public:
 	Location();
@@ -31,14 +30,13 @@ class Location
 	void set_upload(std::string&);
 
 	/*getters*/
-	std::string& get_index();
+	std::vector<std::string>& get_index();
 	std::vector<std::string>& get_methods();
 	std::string& get_redirection();
 	std::string& get_root();
-	std::string& get_errorPage();
+	std::vector<std::pair<std::vector<std::string>, std::string> >& get_errorPage();
 	std::string& get_path();
 	std::string& get_upload();
-	std::vector<int>& get_statusCode();
 	int& get_redirect();
 };
 

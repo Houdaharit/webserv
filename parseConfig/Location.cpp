@@ -4,12 +4,10 @@ Location::Location()
 {
 	this->path = "";
 	this->root = "";
-	this->index = "";
 	this->try_file = "";
 	this->redirection = "";
 	this->redirect = 0;
 	this->fastcgi_pass = "";
-	this->errorPage = "";
 }
 
 Location::~Location()
@@ -28,13 +26,28 @@ void Location::set_root(std::string& root)
 
 void Location::set_index(std::string& index)
 {
-	this->index = index;
+	size_t pos = 0;
+	size_t i = 0;
+
+	while (pos < index.size())
+	{
+		while (pos < index.size() && index[pos] != ' ' && index[pos] != '\t')
+			pos++;
+		std::string tmp = index.substr(i, pos - i);
+		this->index.push_back(tmp);
+		while (pos < index.size() && (index[pos] == ' ' || index[pos] == '\t'))
+			pos++;
+		i = pos;
+	}
 }
 
 void Location::set_errorPage(std::string& error)
 {
 	size_t pos = 0;
 	size_t i = 0;
+	std::vector<std::string> statusCode;
+	std::string errorPage;
+	std::pair<std::vector<std::string>, std::string> errors;
 
 	while (pos < error.size())
 	{
@@ -42,13 +55,16 @@ void Location::set_errorPage(std::string& error)
 			pos++;
 		std::string tmp = error.substr(i, pos - i);
 		if (isNumber(tmp))
-		this->statusCode.push_back(atoi(tmp.c_str()));
+			statusCode.push_back(tmp.c_str());
 		else
-			this->errorPage = tmp;
+			errorPage = tmp;
 		while (pos < error.size() && (error[pos] == ' ' || error[pos] == '\t'))
 			pos++;
 		i = pos;
 	}
+	errors.first = statusCode;
+	errors.second = errorPage;
+	this->errorPage.push_back(errors);
 }
 
 void Location::set_redirection(std::string& redir)
@@ -97,12 +113,12 @@ std::string& Location::get_root()
 	return (this->root);
 }
 
-std::string& Location::get_index()
+std::vector<std::string>& Location::get_index()
 {
 	return (this->index);
 }
 
-std::string& Location::get_errorPage()
+std::vector<std::pair<std::vector<std::string>, std::string> >& Location::get_errorPage()
 {
 	return (this->errorPage);
 }
@@ -110,11 +126,6 @@ std::string& Location::get_errorPage()
 std::string& Location::get_redirection()
 {
 	return (this->redirection);
-}
-
-std::vector<int>& Location::get_statusCode()
-{
-	return (this->statusCode);
 }
 
 int& Location::get_redirect()

@@ -33,10 +33,6 @@ Server parse_server(std::ifstream& conffile)
 		else if (key == "error_page")
 		{
 			server.set_errorPage(value);
-	/*		std::cout << "Vector size: " << server.get_statusCode().size() << std::endl;
-			for(size_t i = 0; i < server.get_statusCode().size(); i++)
-				std::cout << "Status code: " << server.get_statusCode()[i] << std::endl;
-			std::cout << "error page: " << server.get_errorPage() << std::endl;*/
 		}
 	}
 	return server;

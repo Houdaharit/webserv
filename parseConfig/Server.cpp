@@ -8,7 +8,6 @@ Server::Server()
 	this->serverName = "";
 	this->host = "";
 	this->root = "";
-	this->errorPage = "";
 	this->autoindex = "";
 }
 
@@ -34,6 +33,23 @@ std::string& Server::get_host()
 short& Server::get_port()
 {
 	return (this->port);
+}
+
+void Server::set_index(std::string& index)
+{
+        size_t pos = 0;
+        size_t i = 0;
+
+        while (pos < index.size())
+        {
+                while (pos < index.size() && index[pos] != ' ' && index[pos] != '\t')
+                        pos++;
+                std::string tmp = index.substr(i, pos - i);
+                this->index.push_back(tmp);
+                while (pos < index.size() && (index[pos] == ' ' || index[pos] == '\t'))
+                        pos++;
+                i = pos;
+        }
 }
 
 void Server::set_bodySize(std::string& bodySize)
@@ -92,6 +108,9 @@ void Server::set_errorPage(std::string& error)
 {
         size_t pos = 0;
         size_t i = 0;
+	std::vector<std::string> statusCode;
+	std::string errorPage;
+	std::pair<std::vector<std::string>, std::string> errors;
 
         while (pos < error.size())
         {
@@ -99,22 +118,20 @@ void Server::set_errorPage(std::string& error)
                         pos++;
                 std::string tmp = error.substr(i, pos - i);
                 if (isNumber(tmp))
-                this->statusCode.push_back(atoi(tmp.c_str()));
+                statusCode.push_back(tmp);
                 else
-                        this->errorPage = tmp;
+			errorPage = tmp;
                 while (pos < error.size() && (error[pos] == ' ' || error[pos] == '\t'))
                         pos++;
                 i = pos;
         }
+	errors.first = statusCode;
+	errors.second = errorPage;
+	this->errorPage.push_back(errors);
 
 }
 
-std::vector<int>& Server::get_statusCode()
-{
-	return (this->statusCode);
-}
-
-std::string& Server::get_errorPage()
+std::vector<std::pair<std::vector<std::string>, std::string> >& Server::get_errorPage()
 {
 	return (this->errorPage);
 }
@@ -127,5 +144,10 @@ void Server::set_location(std::ifstream& confile, std::string& path)
 std::vector<Location>& Server::get_location()
 {
 	return (this->location);
+}
+
+std::vector<std::string>& Server::get_index()
+{
+        return (this->index);
 }
 	
