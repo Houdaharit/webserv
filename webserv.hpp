@@ -25,6 +25,6 @@ Location parse_location(std::ifstream&, std::string&);
 void set_key_value(std::string&, std::string&, std::string&);
 std::vector<std::string> split(std::string&, char);
 bool isHexadecimal(std::string&);
-void conf_parsing(int, char**);
+ParseConf conf_parsing(int, char**);
 bool isNumber(std::string&);
 #endif
