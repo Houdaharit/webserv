@@ -6,9 +6,11 @@
 #include <cstdlib>
 #include "parseConfig/Location.hpp"
 #include "parseConfig/Server.hpp"
+#include "parseRequest/Request.hpp"
 
 class Location;
 class Server; 
+class HttpRequest;
 
 class ParseConf
 {

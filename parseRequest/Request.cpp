@@ -1,6 +1,12 @@
 #include "Request.hpp"
 
-HttpRequest::HttpRequest(): httpMethod(""), httpVersion(""), uri(""), requestBody(""), chunkedBody(false), isBody(false)
+HttpRequest::HttpRequest() : httpMethod(""),
+	httpVersion(""),
+	uri(""), 
+	requestBody(""), 
+	chunkedBody(false),
+	isBody(false),
+		     requestBodySize(0)
 {
 }
 
@@ -57,7 +63,6 @@ void HttpRequest::set_request(std::string& request_line)
 	std::vector<std::string> request = split(request_line, ' ');
 	if (request.size() != 3)
 		std::cout << "Throw Exception" << std::endl;
-
 	set_httpMethod(request[0]);
 	set_uri(request[1]);
 	set_httpVersion(request[2]);
@@ -119,6 +124,7 @@ void HttpRequest::unchunkBody(std::string& body)
 		else if (isHexadecimal(chunk))
 			continue;
 		this->requestBody = this->requestBody + chunk;
+		this->requestBodySize += chunk.size();
 	}
 	std::cout << this->requestBody << std::endl;
 }
@@ -130,7 +136,11 @@ void HttpRequest::set_body(std::string& body)
 	if (this->chunkedBody)
 		unchunkBody(body);
 	else
+	{
 		this->requestBody = body;
+		std::map<std::string, std::string>::iterator it_chunk = this->headers.find("Transfer-Encoding");
+		this->requestBodySize = atoi(it_chunk->second.c_str()); 
+	}
 }
 
 void HttpRequest::parse(std::string& read_request)
@@ -157,4 +167,34 @@ void HttpRequest::parse(std::string& read_request)
 		  std::cout << "Throw exception Content-Length" << std::endl;*/
 	}
 	//think about throwing exception weird request
+}
+
+std::string& HttpRequest::get_httpMethod()
+{
+	return (this->httpMethod);
+}
+
+std::string& HttpRequest::get_httpVersion()
+{
+	return (this->httpVersion);
+}
+
+std::string& HttpRequest::get_uri()
+{
+	return (this->uri);
+}
+
+std::string& HttpRequest::get_body()
+{
+	return (this->requestBody);
+}
+
+std::map<std::string, std::string>& HttpRequest::get_headers()
+{
+	return (this->headers);
+}
+
+std::size_t&  HttpRequest::get_rmaxbodysize()
+{
+	return (this->requestBodySize);
 }

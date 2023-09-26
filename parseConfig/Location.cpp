@@ -8,6 +8,7 @@ Location::Location()
 	this->redirection = "";
 	this->redirect = 0;
 	this->fastcgi_pass = "";
+	this->autoindex = "OFF";
 }
 
 Location::~Location()
@@ -98,6 +99,11 @@ void Location::set_methods(std::string& methods)
 	}
 }
 
+void Location::set_autoindex(std::string& autoindex)
+{
+        this->autoindex = autoindex;
+}
+
 void Location::set_upload(std::string& upload)
 {
 	this->upload = upload;
@@ -141,4 +147,9 @@ std::string& Location::get_path()
 std::string& Location::get_upload()
 {
 	return (this->upload);
+}
+
+std::string& Location::get_autoindex()
+{
+        return (this->autoindex);
 }

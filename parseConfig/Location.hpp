@@ -6,11 +6,13 @@
 
 class Location
 {
+	
 	std::string path;
 	std::string root;
 	std::vector<std::string> index;
 	std::string try_file;
 	std::string redirection;
+	std::string autoindex;
 	int redirect;
 	std::vector<std::string> methods;
 	std::string fastcgi_pass;
@@ -21,6 +23,7 @@ class Location
 	~Location();
 
 	/*setters*/
+	void set_autoindex(std::string&);
 	void set_errorPage(std::string&);
 	void set_index(std::string&);
 	void set_methods(std::string&);
@@ -30,6 +33,7 @@ class Location
 	void set_upload(std::string&);
 
 	/*getters*/
+	std::string& get_autoindex();
 	std::vector<std::string>& get_index();
 	std::vector<std::string>& get_methods();
 	std::string& get_redirection();
