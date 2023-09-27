@@ -11,6 +11,8 @@ class HttpRequest
 	std::map<std::string, std::string> headers;
 	std::string requestBody;
 	bool chunkedBody;
+	std::fstream bodyFile;
+	std::string bodyFile_path;
 	
 	bool isBody;
 	size_t requestBodySize;
