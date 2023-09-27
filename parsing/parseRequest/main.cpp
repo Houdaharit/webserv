@@ -9,6 +9,6 @@ int main()
 std::string request4("GET /example HTTP/1.1\r\nHost: example.com\r\n");
 
 	HttpRequest httprequest;
-	httprequest.parse(request4);
+	httprequest.parse(request3);
 	return 0;
 }

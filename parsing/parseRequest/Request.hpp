@@ -15,7 +15,7 @@ class HttpRequest
 	std::string bodyFile_path;
 	
 	bool isBody;
-	size_t requestBodySize;
+	size_t bodySize;
 
 	public:
 	void parse(std::string&);
@@ -35,7 +35,7 @@ class HttpRequest
 	std::string& get_httpVersion();
 	std::string& get_uri();
 	std::string& get_body();
-	std::size_t& get_rmaxbodysize();
+	size_t& get_bodysize();
 	std::map<std::string, std::string>& get_headers();
 	
 	void is_method(std::string&);

@@ -6,15 +6,15 @@ HttpRequest::HttpRequest() : httpMethod(""),
 	requestBody(""), 
 	chunkedBody(false),
 	isBody(false),
-	requestBodySize(0)
+	bodySize(0)
 {
 }
 
 HttpRequest::~HttpRequest()
 {
-	if (!std::bodyFile_path.empty())
+	if (!bodyFile_path.empty())
 	{
-		if (!std::remove(this->bodyFile_path.c_str()))
+		if (std::remove(this->bodyFile_path.c_str()) != 0)
 			perror("Error deleting file");
 	}
 }
@@ -130,7 +130,7 @@ void HttpRequest::unchunkBody(std::string& body)
 		else if (isHexadecimal(chunk))
 			continue;
 		//		this->requestBody = this->requestBody + chunk;
-		this->requestBodySize += chunk.size();
+		this->bodySize += chunk.size();
 		this->bodyFile << chunk;
 	}
 	this->bodyFile.close();
@@ -142,15 +142,15 @@ void HttpRequest::set_body(std::string& body)
 	this->bodyFile_path = "./parseRequest/bodyfile";
 	this->bodyFile.open("./parseRequest/bodyfile", std::fstream::app |std::fstream::out | std::fstream::in);
 	if (!this->bodyFile)
-		std::cout << "saloman" << std::endl;
+		std::cerr << "Error opening the file!" << std::endl;
 
 	if (this->chunkedBody)
 		unchunkBody(body);
 	else
 	{
-		//		this->bodyFile << body;
+		this->bodyFile << body;
 		std::map<std::string, std::string>::iterator it_chunk = this->headers.find("Content-Length");
-		this->requestBodySize = atoi(it_chunk->second.c_str()); 
+		this->bodySize = atoi(it_chunk->second.c_str()); 
 	}
 }
 
@@ -205,7 +205,7 @@ std::map<std::string, std::string>& HttpRequest::get_headers()
 	return (this->headers);
 }
 
-std::size_t&  HttpRequest::get_rmaxbodysize()
+size_t&  HttpRequest::get_bodysize()
 {
-	return (this->requestBodySize);
+	return (this->bodySize);
 }
