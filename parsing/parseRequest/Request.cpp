@@ -209,3 +209,9 @@ size_t&  HttpRequest::get_bodysize()
 {
 	return (this->bodySize);
 }
+
+
+std::string& HttpRequest::get_bodyFile_path()
+{
+	return (this->bodyFile_path);
+}

@@ -37,6 +37,7 @@ class HttpRequest
 	std::string& get_body();
 	size_t& get_bodysize();
 	std::map<std::string, std::string>& get_headers();
+	std::string& get_bodyFile_path();
 	
 	void is_method(std::string&);
 	void is_body();
