@@ -59,6 +59,10 @@ void ParseConf::parsing(int argc, char **argv)
 	}
 }
 
+std::vector<Server>& ParseConf::get_servers()
+{
+	return (this->servers);
+}
 /*int main(int argc, char** argv)
   {
   Server server;

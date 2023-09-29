@@ -18,6 +18,7 @@ class ParseConf
 		std::vector<Server> servers;
 		void parsing(int, char**);
 		void read_file(std::ifstream&);
+		std::vector<Server>& get_servers();
 };
 
 int check_file(int argc, char** argv);
