@@ -15,7 +15,9 @@ class HttpRequest;
 class ParseConf
 {
 	public:
-	std::vector<Server> servers;
+		std::vector<Server> servers;
+		void conf_parsing(int, char**);
+		void read_file(std::ifstream&);
 };
 
 int check_file(int argc, char** argv);
@@ -27,6 +29,5 @@ Location parse_location(std::ifstream&, std::string&);
 void set_key_value(std::string&, std::string&, std::string&);
 std::vector<std::string> split(std::string&, char);
 bool isHexadecimal(std::string&);
-ParseConf conf_parsing(int, char**);
 bool isNumber(std::string&);
 #endif

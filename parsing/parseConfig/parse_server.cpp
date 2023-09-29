@@ -4,7 +4,6 @@ Server parse_server(std::ifstream& conffile)
 {
 	std::string key, value, line;
 	Server server;
-	int i = 0;
 
 	while (getline(conffile, line))
 	{
@@ -15,9 +14,6 @@ Server parse_server(std::ifstream& conffile)
 		{
 			if (conffile)
 				server.set_location(conffile, value);
-			//std::cout << "location " << i << std::endl;
-			//std::cout << "Error page: " << server.get_location()[i].get_error_page() << std::endl;
-			i++;
 		}
 		if (key == "listen")
 			server.set_host_port(value);
@@ -26,14 +22,9 @@ Server parse_server(std::ifstream& conffile)
 		if (key == "autoindex")
 			server.set_autoindex(value);
 		else if (key == "root")
-		{
 			server.set_root(value);
-			//std::cout << "Root: " << server.get_root() << std::endl;
-		}
 		else if (key == "error_page")
-		{
 			server.set_errorPage(value);
-		}
 	}
 	return server;
 }

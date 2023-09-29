@@ -25,7 +25,7 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 		key = line;
 }
 
-void read_file(ParseConf& config, std::ifstream& conffile)
+void ParseConf::read_file(std::ifstream& conffile)
 {
 	std::string line;
 	std::string key;
@@ -42,23 +42,21 @@ void read_file(ParseConf& config, std::ifstream& conffile)
 		if (key == "server")
 		{
 			if (conffile)
-				config.servers.push_back(parse_server(conffile));
+				this->servers.push_back(parse_server(conffile));
 		}
 	}
 }
 
-ParseConf conf_parsing(int argc, char **argv)
+void ParseConf::conf_parsing(int argc, char **argv)
 {
 	std::ifstream conffile;
-	ParseConf config;
 
 	if (!check_file(argc, argv))
 	{
 		conffile.open(argv[1]);
-		read_file(config, conffile);
+		read_file(conffile);
 		conffile.close();
 	}
-	return config;
 }
 
 /*int main(int argc, char** argv)
