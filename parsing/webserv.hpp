@@ -16,7 +16,7 @@ class ParseConf
 {
 	public:
 		std::vector<Server> servers;
-		void conf_parsing(int, char**);
+		void parsing(int, char**);
 		void read_file(std::ifstream&);
 };
 

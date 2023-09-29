@@ -47,7 +47,7 @@ void ParseConf::read_file(std::ifstream& conffile)
 	}
 }
 
-void ParseConf::conf_parsing(int argc, char **argv)
+void ParseConf::parsing(int argc, char **argv)
 {
 	std::ifstream conffile;
 

@@ -2,6 +2,7 @@
 
 int main(int argc, char **argv)
 {
-	ParseConf config = conf_parsing(argc, argv);
+	ParseConf config;
+	config.parsing(argc, argv);
 	return (0);
 }
