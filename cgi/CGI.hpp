@@ -1,24 +1,35 @@
 #ifndef CGI_HPP
 #define CGI_HPP
-#include "../parsing/webserv"
+#include <sys/types.h>
+#include <fcntl.h>
+#include <cstring>
+#include <sys/wait.h>
+#include "../parsing/webserv.hpp"
+#include "../networking/Client.hpp"
+#include <unistd.h>
 
-
+class Client;
 class HttpRequest;
 
-class Cgi
+class CGI
 {
-	std::map<std::string, std::string> envVariables;
-	HttpRequest request;
-
+	char** env;
+	Client &client;
 
 	public:
-	Cgi();
-	~Cgi;
+	// CGI();
+	CGI(Client&);
+	CGI(const CGI&);
+	CGI& operator=(const CGI&);
+	~CGI();
 
 	/*setters*/
-	void set_environmentVariables();
+	void set_environmentVariables(std::string&);
 
 	/*getters*/
-	std::map<std::string, std::string>& get_envVariables();
+	char** get_CGIenvironmentVariables();
+
+	void run();
 };
+
 #endif

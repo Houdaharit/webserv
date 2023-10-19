@@ -2,8 +2,10 @@
 #define WEBSERV_HPP
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <cstdlib>
+#include <ctime>
 #include "parseConfig/Location.hpp"
 #include "parseConfig/Server.hpp"
 #include "parseRequest/Request.hpp"
@@ -15,13 +17,23 @@ class HttpRequest;
 class ParseConf
 {
 	public:
+		ParseConf()
+		{
+
+		}
+		~ParseConf()
+		{
+
+		}
 		std::vector<Server> servers;
 		void parsing(int, char**);
 		void read_file(std::ifstream&);
 		std::vector<Server>& get_servers();
+		typedef std::vector<Server>::iterator  v_iterator;
+		typedef std::vector<Server>::const_iterator cv_iterator;
 };
 
-int check_file(int argc, char** argv);
+int check_file(std::ifstream&, int argc, char** argv);
 void trim_front(std::string& str);
 void trim_back(std::string& str);
 void str_trim(std::string& str);
@@ -31,4 +43,5 @@ void set_key_value(std::string&, std::string&, std::string&);
 std::vector<std::string> split(std::string&, char);
 bool isHexadecimal(std::string&);
 bool isNumber(std::string&);
+std::string Generate_Random_File_Name();
 #endif

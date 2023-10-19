@@ -8,6 +8,7 @@ class Location
 {
 	
 	std::string path;
+	size_t bodySize;
 	std::string root;
 	std::vector<std::string> index;
 	std::string try_file;
@@ -20,6 +21,8 @@ class Location
 	std::string upload;
 	public:
 	Location();
+	Location(const Location&);
+	Location& operator=(const Location&);
 	~Location();
 
 	/*setters*/
@@ -31,6 +34,7 @@ class Location
 	void set_root(std::string&);
 	void set_path(std::string&);
 	void set_upload(std::string&);
+	void set_bodySize(std::string&);
 
 	/*getters*/
 	std::string& get_autoindex();
@@ -42,6 +46,7 @@ class Location
 	std::string& get_path();
 	std::string& get_upload();
 	int& get_redirect();
+	size_t& get_bodySize();
 };
 
 #endif

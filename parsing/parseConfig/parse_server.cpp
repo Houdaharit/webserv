@@ -1,6 +1,6 @@
 #include "../webserv.hpp"
 
-Server parse_server(std::ifstream& conffile)
+Server parse_server(std::ifstream &conffile)
 {
 	std::string key, value, line;
 	Server server;
@@ -15,6 +15,8 @@ Server parse_server(std::ifstream& conffile)
 			if (conffile)
 				server.set_location(conffile, value);
 		}
+		if (key == "server_name")
+			server.set_serverName(value);
 		if (key == "listen")
 			server.set_host_port(value);
 		else if (key == "client_max_body_size")

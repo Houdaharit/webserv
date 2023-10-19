@@ -5,7 +5,7 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 	std::size_t pos = 0;
 
 	trim_front(line);
-	while (pos < line.size() && (line[pos] != ' ' && line[pos] != '\t'))
+	while (pos < line.size() && (line[pos] != ' ' && line[pos] != '\t' && line[pos] != '{'))
 		pos++;
 	if (pos < line.size())
 	{
@@ -14,10 +14,9 @@ void set_key_value(std::string& line, std::string& key, std::string& value)
 		std::size_t pos_ = value.find(';');
 		if (pos_ != std::string::npos)
 			value = value.erase(pos_, 1);
-		//A discuter
-		/*		pos_ = value.find('{');
-				if (pos_ != std::string::npos)
-				value = value.erase(pos_, 1);*/
+		pos_ = value.find('{');
+		if (pos_ != std::string::npos)
+			value = value.erase(pos_, 1);
 		str_trim(value);
 		str_trim(key);
 	}
@@ -30,7 +29,6 @@ void ParseConf::read_file(std::ifstream& conffile)
 	std::string line;
 	std::string key;
 	std::string value;
-
 	while (getline(conffile, line))
 	{
 		while (line == "")
@@ -45,15 +43,15 @@ void ParseConf::read_file(std::ifstream& conffile)
 				this->servers.push_back(parse_server(conffile));
 		}
 	}
+//std::cout << "SERVER Port: " << this->servers[1].get_port() << std::endl;
 }
 
 void ParseConf::parsing(int argc, char **argv)
 {
 	std::ifstream conffile;
 
-	if (!check_file(argc, argv))
+	if (!check_file(conffile, argc, argv))
 	{
-		conffile.open(argv[1]);
 		read_file(conffile);
 		conffile.close();
 	}
@@ -63,9 +61,3 @@ std::vector<Server>& ParseConf::get_servers()
 {
 	return (this->servers);
 }
-/*int main(int argc, char** argv)
-  {
-  Server server;
-  conf_parsing(argc, argv);
-  return (0);
-  }*/

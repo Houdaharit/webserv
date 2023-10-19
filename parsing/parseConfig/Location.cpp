@@ -9,6 +9,41 @@ Location::Location()
 	this->redirect = 0;
 	this->fastcgi_pass = "";
 	this->autoindex = "OFF";
+	this->bodySize = 0;
+}
+
+Location::Location(const Location& location)
+{
+	this->path = location.path;
+	this->root = location.root;
+	this->index = location.index;
+	this->bodySize = location.bodySize;
+	this->redirection = location.redirection;
+	this->autoindex = location.autoindex;
+	this->redirect = location.redirect;
+	this->methods = location.methods;
+	this->fastcgi_pass = location.fastcgi_pass;
+	this->errorPage = location.errorPage;
+	this->upload = location.upload;
+}
+
+Location& Location::operator=(const Location& location)
+{
+	if(this != &location)
+	{
+		this->path = location.path;
+		this->root = location.root;
+		this->index = location.index;
+		this->bodySize = location.bodySize;
+		this->redirection = location.redirection;
+		this->autoindex = location.autoindex;
+		this->redirect = location.redirect;
+		this->methods = location.methods;
+		this->fastcgi_pass = location.fastcgi_pass;
+		this->errorPage = location.errorPage;
+		this->upload = location.upload;
+	}
+	return (*this);
 }
 
 Location::~Location()
@@ -40,6 +75,22 @@ void Location::set_index(std::string& index)
 			pos++;
 		i = pos;
 	}
+}
+
+void Location::set_bodySize(std::string& bodySize)
+{
+	size_t pos;
+
+	pos = bodySize.find("M");
+	if (pos == std::string::npos)
+		pos = bodySize.find("m");
+	if (pos == std::string::npos)
+		return ;
+	bodySize = bodySize.substr(0, pos);
+	std::istringstream iss(bodySize);
+
+	iss >> this->bodySize;
+
 }
 
 void Location::set_errorPage(std::string& error)
@@ -101,7 +152,7 @@ void Location::set_methods(std::string& methods)
 
 void Location::set_autoindex(std::string& autoindex)
 {
-        this->autoindex = autoindex;
+	this->autoindex = autoindex;
 }
 
 void Location::set_upload(std::string& upload)
@@ -151,5 +202,10 @@ std::string& Location::get_upload()
 
 std::string& Location::get_autoindex()
 {
-        return (this->autoindex);
+	return (this->autoindex);
+}
+
+size_t& Location::get_bodySize()
+{
+	return (this->bodySize);
 }

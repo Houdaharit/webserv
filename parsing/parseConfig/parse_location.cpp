@@ -17,12 +17,16 @@ Location parse_location(std::ifstream& confile, std::string& path)
 			location.set_index(value);
 		else if (key == "error_page")
 			location.set_errorPage(value);
-		else if (key == "limit_except")
+		else if (key == "allowed_methods")
 			location.set_methods(value);
 		else if (key == "return")
 			location.set_redirection(value);
 		else if (key == "upload")
 			location.set_upload(value);
+		else if (key == "autoindex")
+			location.set_autoindex(value);
+		else if(key == "client_max_body_size")
+                        location.set_bodySize(value);
 	}
 	return location;
 }

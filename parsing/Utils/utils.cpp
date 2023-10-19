@@ -1,62 +1,59 @@
 #include "../webserv.hpp"
 
-int check_file(int argc, char** argv)
+int check_file(std::ifstream &conffile, int argc, char **argv)
 {
+	std::string default_config("parsing/configs/default.conf");
+	std::string filename(default_config);
 
-	std::ifstream conffile;
-
-	if (argc == 1)
+	if (argc == 2)
 	{
-		std::cout << "No config file!" << std::endl;
-		return -1;
-	}
-	else if (argc == 2)
-	{
-		conffile.open(argv[1]);
+		filename = argv[1];
+		conffile.open(filename.c_str());
 		if (!conffile)
 		{
-			std::cout << "No such file or permission denied!" << std::endl;
-			return -1;
+			std::cerr << filename << " :No such file or permission denied!" << std::endl;
+			filename = default_config;
 		}
 		else
-			conffile.close();
+			return 0;
 	}
-	else
+	conffile.open(filename.c_str());
+	if (!conffile)
 	{
-		std::cout << "Entre only one config file!" << std::endl;
+		std::cerr << filename << " :No such file or permission denied!" << std::endl;
 		return -1;
 	}
 	return 0;
 }
 
-void trim_front(std::string& str)
+void trim_front(std::string &str)
 {
 	std::size_t i = 0;
-	while(i < str.size() && (str[i] == ' ' || str[i] == '\t'))
+	while (i < str.size() && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	str = str.substr(i);
 }
 
-void trim_back(std::string& str)
+void trim_back(std::string &str)
 {
 	std::size_t pos;
 
 	pos = str.size();
-	while (pos > 1 && (str[pos - 1] == ' ' || str[pos - 1] == '\t'))
+	while (pos > 0 && (str[pos - 1] == ' ' || str[pos - 1] == '\t'))
 		pos--;
-	if (pos == 1)
-		return ;
-	//sus error
+	if (pos == 0)
+		return;
+	// sus error
 	str = str.substr(0, pos);
 }
 
-void str_trim(std::string& str)
+void str_trim(std::string &str)
 {
 	trim_front(str);
 	trim_back(str);
 }
 
-std::vector<std::string> split(std::string& str, char delim)
+std::vector<std::string> split(std::string &str, char delim)
 {
 	std::vector<std::string> split_str;
 	std::string tmp;
@@ -74,12 +71,12 @@ std::vector<std::string> split(std::string& str, char delim)
 	return split_str;
 }
 
-bool isHexadecimal(std::string& str)
+bool isHexadecimal(std::string &str)
 {
 
 	if (str.empty())
 		return false;
-	for(size_t i = 0; i < str.size(); i++)
+	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (!std::isxdigit(str[i]))
 			return false;
@@ -87,15 +84,32 @@ bool isHexadecimal(std::string& str)
 	return true;
 }
 
-bool isNumber(std::string& str)
+bool isNumber(std::string &str)
 {
 
 	if (str.empty())
 		return false;
-	for(size_t i = 0; i < str.size(); i++)
+	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (!std::isdigit(str[i]))
 			return false;
 	}
 	return true;
+}
+
+std::string Generate_Random_File_Name()
+{
+	const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	const int charsetSize = sizeof(charset) - 1;
+	const int fileNameLength = 7;
+	std::string randomFileName;
+
+	std::srand(static_cast<unsigned int>(std::time(0)));
+
+	for (int i = 0; i < fileNameLength; ++i)
+	{
+		int randomIndex = std::rand() % charsetSize;
+		randomFileName += charset[randomIndex];
+	}
+	return randomFileName;
 }
